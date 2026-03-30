@@ -1,568 +1,246 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="theme-color" content="#1a2332"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="theme-color" content="#0f1923"/>
+<meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="Chem Safety"/>
-<title>Chemical Safety — Pest Control</title>
+<title>Chemical Safety</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
 :root {
-  --bg: #f4f2ed;
-  --surface: #ffffff;
-  --surface2: #f0ede6;
-  --border: #ddd9d0;
-  --border2: #c8c4bb;
-  --text: #1a1a18;
-  --text2: #5a5850;
-  --text3: #8a8880;
-  --accent: #1a2332;
-  --accent-light: #e8ecf2;
-  --accent-text: #0e1620;
-  --danger: #8b1a1a;
-  --danger-bg: #fdf0f0;
-  --danger-border: #e8b4b4;
-  --warning: #7a4a00;
-  --warning-bg: #fdf6e8;
-  --warning-border: #e8d4a0;
-  --caution: #4a5a20;
-  --caution-bg: #f4f8ec;
-  --caution-border: #c4d890;
-  --mono: 'IBM Plex Mono', monospace;
-  --sans: 'IBM Plex Sans', sans-serif;
-  --radius: 6px;
-  --radius-lg: 10px;
+  --black: #0f1923;
+  --black2: #1a2633;
+  --black3: #243040;
+  --white: #f5f7f9;
+  --white2: #dde3ea;
+  --white3: #a8b4c0;
+  --red: #e63946;
+  --red-dark: #b02030;
+  --red-bg: #1f0a0c;
+  --red-light: #ff6b74;
+  --amber: #f4a629;
+  --amber-bg: #1f1508;
+  --green: #3dba6f;
+  --green-bg: #081a0f;
+  --blue: #4a9eff;
+  --blue-bg: #071624;
+  --condensed: 'Barlow Condensed', sans-serif;
+  --body: 'Barlow', sans-serif;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 16px; -webkit-text-size-adjust: 100%; }
-body {
-  font-family: var(--sans);
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  line-height: 1.5;
-}
+body { font-family: var(--body); background: var(--black); color: var(--white); min-height: 100dvh; line-height: 1.5; }
 
-/* Header */
-.app-header {
-  background: var(--accent);
-  color: #fff;
-  padding: 0 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 52px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+.header {
+  background: var(--black);
+  border-bottom: 2px solid var(--red);
+  padding: 12px 16px;
+  padding-top: calc(12px + env(safe-area-inset-top));
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
 }
-.app-header h1 {
-  font-family: var(--mono);
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: #fff;
+.header-title { font-family: var(--condensed); font-size: 22px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1; }
+.header-sub { font-size: 11px; color: var(--white3); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+.poison-btn {
+  background: var(--red); color: #fff;
+  font-family: var(--condensed); font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 8px 14px; border-radius: 4px; text-decoration: none; white-space: nowrap; transition: background 0.15s;
 }
-.header-sub {
-  font-size: 11px;
-  color: rgba(255,255,255,0.5);
-  font-family: var(--mono);
-}
-.emergency-pill {
-  background: #8b1a1a;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 500;
-  padding: 6px 12px;
-  border-radius: 20px;
-  text-decoration: none;
-  font-family: var(--mono);
-  white-space: nowrap;
-}
-.emergency-pill:hover { background: #a02020; }
+.poison-btn:hover { background: var(--red-dark); }
 
-/* Emergency bar */
-.emergency-bar {
-  background: var(--danger-bg);
-  border-bottom: 1px solid var(--danger-border);
-  padding: 8px 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
+.emerg-bar {
+  background: var(--red-bg); border-bottom: 1px solid var(--red-dark);
+  padding: 8px 16px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
 }
-.emergency-bar .label {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--danger);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.emergency-bar .links { display: flex; gap: 8px; flex-wrap: wrap; }
-.emerg-link {
-  font-size: 12px;
-  color: var(--danger);
-  text-decoration: none;
-  border: 1px solid var(--danger-border);
-  border-radius: var(--radius);
-  padding: 3px 10px;
-  background: #fff;
-  font-weight: 500;
-}
-.emerg-link:hover { background: var(--danger-bg); }
+.emerg-label { font-family: var(--condensed); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red-light); }
+.emerg-links { display: flex; gap: 8px; flex-wrap: wrap; }
+.emerg-link { font-size: 13px; font-weight: 600; color: var(--red-light); text-decoration: none; border: 1px solid var(--red-dark); border-radius: 4px; padding: 4px 10px; background: rgba(230,57,70,0.1); }
 
-/* Main layout */
-.main { max-width: 800px; margin: 0 auto; padding: 16px; }
+.main { max-width: 640px; margin: 0 auto; padding: 14px 14px 40px; }
 
-/* Tabs */
-.tabs {
-  display: flex;
-  gap: 0;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  margin-bottom: 16px;
-  background: var(--surface2);
-}
-.tab-btn {
-  flex: 1;
-  padding: 10px 12px;
-  font-size: 13px;
-  font-family: var(--sans);
-  background: transparent;
-  border: none;
-  border-right: 1px solid var(--border);
-  cursor: pointer;
-  color: var(--text2);
-  font-weight: 400;
-  transition: background 0.15s;
-}
+.tabs { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--black3); border-radius: 6px; overflow: hidden; margin-bottom: 14px; }
+.tab-btn { padding: 12px; font-family: var(--condensed); font-size: 15px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: var(--black2); border: none; border-right: 1px solid var(--black3); cursor: pointer; color: var(--white3); transition: all 0.15s; }
 .tab-btn:last-child { border-right: none; }
-.tab-btn.active {
-  background: var(--surface);
-  color: var(--text);
-  font-weight: 500;
-}
-.tab-btn:hover:not(.active) { background: var(--border); }
+.tab-btn.active { background: var(--black3); color: var(--white); }
 
-/* Search */
-.search-wrap { position: relative; margin-bottom: 14px; }
-.search-wrap input {
-  width: 100%;
-  padding: 11px 40px 11px 14px;
-  font-size: 15px;
-  font-family: var(--sans);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius);
-  background: var(--surface);
-  color: var(--text);
-  outline: none;
-  transition: border-color 0.15s;
-}
-.search-wrap input:focus { border-color: var(--accent); }
-.search-wrap input::placeholder { color: var(--text3); }
-.search-icon {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--text3);
-  pointer-events: none;
-  font-size: 16px;
-}
+.search-wrap { position: relative; margin-bottom: 10px; }
+.search-input { width: 100%; padding: 14px 46px 14px 16px; font-family: var(--body); font-size: 16px; font-weight: 500; background: var(--black2); border: 1.5px solid var(--black3); border-radius: 6px; color: var(--white); outline: none; -webkit-appearance: none; transition: border-color 0.15s; }
+.search-input:focus { border-color: var(--blue); }
+.search-input::placeholder { color: var(--white3); }
+.search-icon { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--white3); font-size: 20px; pointer-events: none; }
 
-/* Status bar */
-.status-bar {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--text3);
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.status-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--caution);
-  display: inline-block;
-}
-.status-dot.ok { background: #3a7a30; }
-.status-dot.err { background: var(--danger); }
+.status-bar { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--white3); margin-bottom: 12px; display: flex; align-items: center; gap: 7px; }
+.sdot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
+.sdot.ok { background: var(--green); }
+.sdot.err { background: var(--red); }
 
-/* Result items */
-.result-item {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 12px 14px;
-  margin-bottom: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  transition: border-color 0.15s, background 0.15s;
-}
-.result-item:hover { border-color: var(--border2); background: var(--surface2); }
-.result-name { font-size: 15px; font-weight: 500; margin-bottom: 3px; }
-.result-meta { font-size: 12px; color: var(--text2); font-family: var(--mono); }
-.result-arrow { color: var(--text3); font-size: 18px; flex-shrink: 0; }
+.result-card { background: var(--black2); border: 1px solid var(--black3); border-left: 4px solid var(--black3); border-radius: 6px; padding: 14px 16px; margin-bottom: 8px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; transition: border-color 0.15s, background 0.15s; -webkit-tap-highlight-color: transparent; }
+.result-card:active { background: var(--black3); }
+.result-card.sig-danger { border-left-color: var(--red); }
+.result-card.sig-warning { border-left-color: var(--amber); }
+.result-card.sig-caution { border-left-color: var(--green); }
+.result-name { font-family: var(--condensed); font-size: 19px; font-weight: 700; letter-spacing: 0.02em; color: var(--white); line-height: 1.2; margin-bottom: 3px; }
+.result-meta { font-size: 12px; color: var(--white3); line-height: 1.4; }
+.result-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.result-arrow { color: var(--white3); font-size: 24px; font-weight: 300; }
 
-/* Signal badges */
-.sig-badge {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 500;
-  padding: 3px 10px;
-  border-radius: 20px;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.sig-DANGER { background: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger-border); }
-.sig-WARNING { background: var(--warning-bg); color: var(--warning); border: 1px solid var(--warning-border); }
-.sig-CAUTION { background: var(--caution-bg); color: var(--caution); border: 1px solid var(--caution-border); }
+.badge { font-family: var(--condensed); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; border-radius: 3px; white-space: nowrap; }
+.badge-DANGER { background: var(--red-bg); color: var(--red-light); border: 1px solid var(--red-dark); }
+.badge-WARNING { background: var(--amber-bg); color: var(--amber); border: 1px solid #5a3a00; }
+.badge-CAUTION { background: var(--green-bg); color: var(--green); border: 1px solid #1a5030; }
 
-/* Back button */
-.back-btn {
-  background: none;
-  border: none;
-  font-size: 13px;
-  color: var(--text2);
-  cursor: pointer;
-  padding: 0 0 12px 0;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--sans);
-}
-.back-btn:hover { color: var(--text); }
+.back-btn { background: none; border: none; font-family: var(--condensed); font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--white3); cursor: pointer; padding: 0 0 14px; display: flex; align-items: center; gap: 6px; }
+.back-btn:hover { color: var(--white); }
 
-/* Detail card */
-.detail-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-}
-.detail-header {
-  padding: 16px;
-  border-bottom: 1px solid var(--border);
-}
-.detail-name { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
-.detail-ai { font-size: 13px; color: var(--text2); margin-bottom: 10px; font-family: var(--mono); }
-.detail-pills { display: flex; flex-wrap: wrap; gap: 6px; }
-.meta-pill {
-  font-family: var(--mono);
-  font-size: 11px;
-  padding: 3px 10px;
-  border-radius: 20px;
-  background: var(--surface2);
-  color: var(--text2);
-  border: 1px solid var(--border);
-}
-.rup-pill {
-  background: var(--danger-bg);
-  color: var(--danger);
-  border: 1px solid var(--danger-border);
-}
+.detail-name { font-family: var(--condensed); font-size: 30px; font-weight: 800; letter-spacing: 0.02em; text-transform: uppercase; line-height: 1.1; margin-bottom: 4px; }
+.detail-ai { font-size: 13px; color: var(--white3); margin-bottom: 12px; }
+.detail-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.pill { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 3px; background: var(--black3); color: var(--white2); border: 1px solid #2e3d50; }
+.pill-rup { background: var(--red-bg); color: var(--red-light); border-color: var(--red-dark); }
 
-/* Emergency first aid block */
-.fa-block {
-  background: var(--danger-bg);
-  border-bottom: 1px solid var(--danger-border);
-  padding: 14px 16px;
-}
-.block-label {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 10px;
-}
-.fa-block .block-label { color: var(--danger); }
-.fa-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 8px;
-}
-.fa-item {
-  background: #fff;
-  border: 1px solid var(--danger-border);
-  border-radius: var(--radius);
-  padding: 10px 12px;
-}
-.fa-type {
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--danger);
-  margin-bottom: 5px;
-}
-.fa-item p { font-size: 12px; color: #3a0a0a; line-height: 1.55; }
+.sec-label { font-family: var(--condensed); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--white3); margin-bottom: 10px; }
 
-/* Info sections */
-.detail-section { padding: 14px 16px; border-bottom: 1px solid var(--border); }
-.detail-section:last-child { border-bottom: none; }
-.detail-section .block-label { color: var(--text3); margin-bottom: 8px; }
+.fa-block { background: var(--red-bg); border: 1px solid var(--red-dark); border-left: 4px solid var(--red); border-radius: 6px; padding: 14px; margin-bottom: 12px; }
+.fa-block .sec-label { color: var(--red-light); margin-bottom: 12px; }
+.fa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.fa-item { background: rgba(0,0,0,0.35); border: 1px solid var(--red-dark); border-radius: 4px; padding: 10px 12px; }
+.fa-type { font-family: var(--condensed); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red-light); margin-bottom: 5px; }
+.fa-text { font-size: 13px; color: #f0c0c2; line-height: 1.5; }
+
+.info-block { background: var(--black2); border: 1px solid var(--black3); border-radius: 6px; padding: 14px; margin-bottom: 10px; }
 .ppe-pills { display: flex; flex-wrap: wrap; gap: 6px; }
-.ppe-pill {
-  font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  background: var(--accent-light);
-  color: var(--accent-text);
-  border: 1px solid #c0ccd8;
-}
-.comp-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 8px;
-}
-.comp-box {
-  background: var(--surface2);
-  border-radius: var(--radius);
-  padding: 10px 12px;
-  text-align: center;
-}
-.comp-val { font-size: 14px; font-weight: 500; font-family: var(--mono); margin-bottom: 2px; }
-.comp-lbl { font-size: 11px; color: var(--text3); }
-.info-text { font-size: 13px; color: var(--text); line-height: 1.6; }
+.ppe-pill { font-size: 13px; font-weight: 500; padding: 5px 12px; border-radius: 4px; background: var(--blue-bg); color: var(--blue); border: 1px solid #1a3a5a; }
 
-/* SDS links */
-.sds-links { display: flex; flex-wrap: wrap; gap: 6px; }
-.sds-link {
-  font-size: 12px;
-  padding: 5px 12px;
-  border-radius: var(--radius);
-  border: 1px solid var(--border2);
-  color: #185FA5;
-  text-decoration: none;
-  background: var(--surface);
-  font-family: var(--mono);
-}
-.sds-link:hover { background: var(--accent-light); }
+.comp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(85px, 1fr)); gap: 8px; }
+.comp-box { background: var(--black3); border-radius: 4px; padding: 10px; text-align: center; }
+.comp-val { font-family: var(--condensed); font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 3px; line-height: 1.2; }
+.comp-lbl { font-size: 10px; color: var(--white3); letter-spacing: 0.06em; text-transform: uppercase; }
+.info-text { font-size: 14px; color: var(--white2); line-height: 1.6; }
 
-/* Empty / loading */
-.empty-state {
-  text-align: center;
-  padding: 40px 20px;
-  color: var(--text2);
-  font-size: 13px;
-  line-height: 1.8;
-}
-.empty-state strong { color: var(--danger); }
-.loading {
-  text-align: center;
-  padding: 40px 20px;
-  color: var(--text3);
-  font-family: var(--mono);
-  font-size: 12px;
-}
+.sds-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.sds-link { font-family: var(--condensed); font-size: 14px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 9px 16px; border-radius: 4px; border: 1px solid var(--black3); color: var(--blue); text-decoration: none; background: var(--blue-bg); }
 
-/* Manage tab */
-.manage-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 16px;
-  margin-bottom: 14px;
-}
-.manage-card h2 {
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 12px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border);
-  font-family: var(--mono);
-  color: var(--text2);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-.notice {
-  font-size: 12px;
-  color: var(--text2);
-  background: var(--surface2);
-  border-radius: var(--radius);
-  padding: 8px 12px;
-  margin-bottom: 12px;
-  line-height: 1.5;
-  border: 1px solid var(--border);
-}
+.empty-state { text-align: center; padding: 48px 20px; color: var(--white3); font-size: 14px; line-height: 1.8; }
+.empty-emerg { display: block; margin-top: 12px; font-family: var(--condensed); font-size: 22px; font-weight: 800; letter-spacing: 0.04em; color: var(--red-light); }
+
+.offline-banner { background: var(--amber-bg); border: 1px solid #5a3a00; border-radius: 4px; padding: 8px 12px; font-size: 12px; font-weight: 600; color: var(--amber); margin-bottom: 12px; display: none; }
+
+.manage-card { background: var(--black2); border: 1px solid var(--black3); border-radius: 6px; padding: 16px; margin-bottom: 12px; }
+.manage-title { font-family: var(--condensed); font-size: 16px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white2); margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--black3); }
+.notice { font-size: 12px; color: var(--white3); background: var(--black3); border-radius: 4px; padding: 8px 12px; margin-bottom: 12px; line-height: 1.5; }
 .form-grid { display: grid; gap: 10px; }
 .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-.form-field { display: flex; flex-direction: column; gap: 4px; }
-.form-label { font-size: 11px; color: var(--text2); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.04em; }
-.form-grid input, .form-grid select, .form-grid textarea {
-  width: 100%;
-  padding: 8px 10px;
-  font-size: 13px;
-  font-family: var(--sans);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius);
-  background: var(--surface);
-  color: var(--text);
-  outline: none;
-}
-.form-grid input:focus, .form-grid select:focus, .form-grid textarea:focus { border-color: var(--accent); }
-.form-grid textarea { height: 60px; resize: none; }
-.save-btn {
-  padding: 10px 20px;
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius);
-  font-size: 13px;
-  font-weight: 500;
-  font-family: var(--sans);
-  cursor: pointer;
-  margin-top: 4px;
-}
-.save-btn:hover { background: var(--accent-text); }
+.form-field { display: flex; flex-direction: column; gap: 5px; }
+.form-label { font-family: var(--condensed); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white3); }
+.form-grid input, .form-grid select, .form-grid textarea { width: 100%; padding: 10px 12px; font-family: var(--body); font-size: 14px; background: var(--black); border: 1.5px solid var(--black3); border-radius: 4px; color: var(--white); outline: none; -webkit-appearance: none; transition: border-color 0.15s; }
+.form-grid input:focus, .form-grid select:focus, .form-grid textarea:focus { border-color: var(--blue); }
+.form-grid textarea { height: 64px; resize: none; }
+.save-btn { padding: 12px 24px; background: var(--blue); color: var(--black); border: none; border-radius: 4px; font-family: var(--condensed); font-size: 16px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; margin-top: 4px; }
 
-/* Inventory table */
+.inv-wrap { overflow-x: auto; }
 .inv-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.inv-table th {
-  text-align: left;
-  padding: 6px 8px;
-  font-size: 11px;
-  font-family: var(--mono);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--text3);
-  border-bottom: 1px solid var(--border);
-  font-weight: 500;
-}
-.inv-table td { padding: 9px 8px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.inv-table th { text-align: left; padding: 7px 8px; font-family: var(--condensed); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white3); border-bottom: 1px solid var(--black3); }
+.inv-table td { padding: 10px 8px; border-bottom: 1px solid var(--black3); vertical-align: middle; color: var(--white2); }
 .inv-table tr:last-child td { border-bottom: none; }
-.del-btn {
-  font-size: 11px;
-  color: var(--danger);
-  border: 1px solid var(--danger-border);
-  background: none;
-  border-radius: var(--radius);
-  padding: 3px 8px;
-  cursor: pointer;
-  font-family: var(--mono);
-}
-.del-btn:hover { background: var(--danger-bg); }
+.del-btn { font-family: var(--condensed); font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--red-light); border: 1px solid var(--red-dark); background: none; border-radius: 3px; padding: 4px 8px; cursor: pointer; }
 
-/* Offline banner */
-.offline-banner {
-  background: var(--warning-bg);
-  border: 1px solid var(--warning-border);
-  border-radius: var(--radius);
-  padding: 8px 12px;
-  font-size: 12px;
-  color: var(--warning);
-  margin-bottom: 12px;
-  font-family: var(--mono);
-  display: none;
-}
-
-@media (max-width: 520px) {
+@media (max-width: 480px) {
   .row2, .row3 { grid-template-columns: 1fr; }
   .fa-grid { grid-template-columns: 1fr 1fr; }
-  .comp-grid { grid-template-columns: repeat(3, 1fr); }
-  .app-header h1 { font-size: 13px; }
-  .emergency-pill { font-size: 11px; padding: 5px 10px; }
+  .detail-name { font-size: 26px; }
 }
 </style>
 </head>
 <body>
 
-<header class="app-header">
+<header class="header">
   <div>
-    <div class="h1">Chemical Safety</div>
+    <div class="header-title">Chemical Safety</div>
     <div class="header-sub">Pest Control Reference</div>
   </div>
-  <a class="emergency-pill" href="tel:18002221222">&#9888; Poison Control</a>
+  <a class="poison-btn" href="tel:18002221222">⚠ Poison Control</a>
 </header>
 
-<div class="emergency-bar">
-  <span class="label">Emergency</span>
-  <div class="links">
-    <a class="emerg-link" href="tel:18002221222">1-800-222-1222 — Poison Control</a>
+<div class="emerg-bar">
+  <span class="emerg-label">Emergency</span>
+  <div class="emerg-links">
+    <a class="emerg-link" href="tel:18002221222">1-800-222-1222</a>
     <a class="emerg-link" href="tel:911">911</a>
-    <a class="emerg-link" href="https://npic.orst.edu" target="_blank">NPIC online</a>
+    <a class="emerg-link" href="https://npic.orst.edu" target="_blank">NPIC</a>
   </div>
 </div>
 
 <div class="main">
-  <div id="offline-banner" class="offline-banner">Offline — showing cached data</div>
-
+  <div id="offline-banner" class="offline-banner">⚠ Offline — showing cached data</div>
   <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('search')">Search chemicals</button>
-    <button class="tab-btn" onclick="switchTab('manage')">Manage inventory</button>
+    <button class="tab-btn active" onclick="switchTab('search')">Search</button>
+    <button class="tab-btn" onclick="switchTab('manage')">Manage</button>
   </div>
 
-  <!-- SEARCH TAB -->
   <div id="tab-search">
     <div class="search-wrap">
-      <input type="text" id="search-input" placeholder="Product name, active ingredient, or EPA reg. no." oninput="doSearch()" autocomplete="off" autocorrect="off" spellcheck="false"/>
-      <span class="search-icon">&#128269;</span>
+      <input class="search-input" type="text" id="search-input"
+        placeholder="Product, ingredient, or EPA reg. no."
+        oninput="doSearch()" autocomplete="off" autocorrect="off" spellcheck="false"/>
+      <span class="search-icon">🔍</span>
     </div>
     <div class="status-bar">
-      <span class="status-dot" id="status-dot"></span>
-      <span id="status-text">Loading chemical data...</span>
+      <span class="sdot" id="status-dot"></span>
+      <span id="status-text">Loading...</span>
     </div>
-    <div id="results-area">
-      <div class="loading">Fetching inventory from Google Sheets...</div>
-    </div>
+    <div id="results-area"></div>
     <div id="detail-area" style="display:none"></div>
   </div>
 
-  <!-- MANAGE TAB -->
   <div id="tab-manage" style="display:none">
     <div class="manage-card">
-      <h2>Add product</h2>
+      <div class="manage-title">Add product</div>
       <div class="notice">Fields marked * appear prominently in emergency and inspection views.</div>
       <div class="form-grid">
         <div class="row2">
           <div class="form-field"><label class="form-label">Product name *</label><input type="text" id="f-name" placeholder="e.g. Talstar P"/></div>
-          <div class="form-field"><label class="form-label">Active ingredient(s) *</label><input type="text" id="f-ai" placeholder="e.g. Bifenthrin 7.9%"/></div>
+          <div class="form-field"><label class="form-label">Active ingredient *</label><input type="text" id="f-ai" placeholder="e.g. Bifenthrin 7.9%"/></div>
         </div>
         <div class="row3">
-          <div class="form-field"><label class="form-label">EPA Reg. No. *</label><input type="text" id="f-epa" placeholder="e.g. 279-3206"/></div>
+          <div class="form-field"><label class="form-label">EPA Reg. No. *</label><input type="text" id="f-epa" placeholder="279-3206"/></div>
           <div class="form-field"><label class="form-label">Signal word</label>
             <select id="f-signal"><option value="DANGER">DANGER</option><option value="WARNING" selected>WARNING</option><option value="CAUTION">CAUTION</option></select>
           </div>
           <div class="form-field"><label class="form-label">Tox. category</label>
-            <select id="f-tox"><option value="I">I — Danger</option><option value="II" selected>II — Warning</option><option value="III">III — Caution</option><option value="IV">IV — Caution</option></select>
+            <select id="f-tox"><option value="I">I</option><option value="II" selected>II</option><option value="III">III</option><option value="IV">IV</option></select>
           </div>
         </div>
         <div class="row2">
-          <div class="form-field"><label class="form-label">Target pests</label><input type="text" id="f-pests" placeholder="Ants, cockroaches, termites"/></div>
-          <div class="form-field"><label class="form-label">PPE required *</label><input type="text" id="f-ppe" placeholder="Gloves, goggles, respirator"/></div>
+          <div class="form-field"><label class="form-label">Target pests</label><input type="text" id="f-pests" placeholder="Ants, cockroaches..."/></div>
+          <div class="form-field"><label class="form-label">PPE required *</label><input type="text" id="f-ppe" placeholder="Gloves, goggles..."/></div>
         </div>
         <div class="row3">
           <div class="form-field"><label class="form-label">First aid — skin *</label><textarea id="f-fa-skin" placeholder="Wash with soap and water 15-20 min."></textarea></div>
           <div class="form-field"><label class="form-label">First aid — eyes *</label><textarea id="f-fa-eye" placeholder="Flush with water 15-20 min."></textarea></div>
-          <div class="form-field"><label class="form-label">First aid — inhaled *</label><textarea id="f-fa-inhale" placeholder="Move to fresh air. Call 911 if needed."></textarea></div>
+          <div class="form-field"><label class="form-label">First aid — inhaled *</label><textarea id="f-fa-inhale" placeholder="Move to fresh air..."></textarea></div>
         </div>
         <div class="row2">
-          <div class="form-field"><label class="form-label">Storage</label><textarea id="f-storage" placeholder="Store in original container, locked storage..."></textarea></div>
+          <div class="form-field"><label class="form-label">Storage</label><textarea id="f-storage" placeholder="Store in original container..."></textarea></div>
           <div>
-            <div class="form-field" style="margin-bottom:8px"><label class="form-label">Re-entry interval (REI)</label><input type="text" id="f-rei" placeholder="e.g. 4 hours"/></div>
+            <div class="form-field" style="margin-bottom:8px"><label class="form-label">REI</label><input type="text" id="f-rei" placeholder="e.g. 4 hours"/></div>
             <div class="form-field"><label class="form-label">Restricted use?</label>
-              <select id="f-ru"><option value="No">No — General use</option><option value="Yes">Yes — Restricted (RUP)</option></select>
+              <select id="f-ru"><option value="No">No — General use</option><option value="Yes">Yes — RUP</option></select>
             </div>
           </div>
         </div>
+        <div class="form-field"><label class="form-label">SDS URL</label><input type="text" id="f-sds" placeholder="https://..."/></div>
         <div><button class="save-btn" onclick="saveProduct()">Save to inventory</button></div>
       </div>
     </div>
     <div class="manage-card">
-      <h2>Current inventory</h2>
+      <div class="manage-title">Current inventory</div>
       <div id="manage-list"></div>
     </div>
   </div>
@@ -572,275 +250,175 @@ body {
 const SHEET_URL = '/api/sheet';
 const CACHE_KEY = 'pestchem_cache';
 const LOCAL_KEY = 'pestchem_local';
-
 let sheetProducts = [];
 let localProducts = JSON.parse(localStorage.getItem(LOCAL_KEY) || '[]');
-let activeTab = 'search';
-
 function allProducts() { return [...sheetProducts, ...localProducts]; }
 
 function parseCSV(text) {
   const lines = text.trim().split('\n');
   if (lines.length < 2) return [];
-  const headers = lines[0].split(',').map(h => h.replace(/^"|"$/g, '').trim().toLowerCase());
-  const find = (h, alts) => {
-    const keys = [h, ...(alts||[])];
-    for (const k of keys) {
-      const i = headers.findIndex(x => x === k || x.includes(k));
-      if (i >= 0) return i;
-    }
-    return -1;
-  };
+  const headers = lines[0].split(',').map(h => h.replace(/^"|"$/g,'').trim().toLowerCase());
+  const find = (h, alts) => { const keys=[h,...(alts||[])]; for(const k of keys){const i=headers.findIndex(x=>x===k||x.includes(k));if(i>=0)return i;} return -1; };
   const col = {
-    name: find('product name', ['name','product']),
-    ai: find('active ingredient', ['active','ingredient','ai']),
-    epa: find('epa reg', ['epa','reg no','registration']),
-    signal: find('signal word', ['signal']),
-    tox: find('tox category', ['tox','toxicity','category']),
-    pests: find('target pest', ['pest','target']),
-    ppe: find('ppe', ['protective','equipment']),
-    fa_skin: find('fa skin', ['skin','first aid skin']),
-    fa_eye: find('fa eye', ['eye','eyes','first aid eye']),
-    fa_inhale: find('fa inhale', ['inhale','inhalation','first aid inhale']),
-    storage: find('storage', ['store','handling']),
-    rei: find('rei', ['re-entry','reentry']),
-   ru: find('restricted use', ['restricted','rup']),
-sds: find('sds url', ['sds','sds link','sds_url'])
+    name: find('product name',['name','product']), ai: find('active ingredient',['active','ingredient','ai']),
+    epa: find('epa reg',['epa','reg no','registration']), signal: find('signal word',['signal']),
+    tox: find('tox category',['tox','toxicity','category']), pests: find('target pest',['pest','target']),
+    ppe: find('ppe',['protective','equipment']), fa_skin: find('fa skin',['skin','first aid skin']),
+    fa_eye: find('fa eye',['eye','eyes','first aid eye']), fa_inhale: find('fa inhale',['inhale','inhalation','first aid inhale']),
+    storage: find('storage',['store','handling']), rei: find('rei',['re-entry','reentry']),
+    ru: find('restricted use',['restricted','rup']), sds: find('sds url',['sds','sds link','sds_url'])
   };
-  return lines.slice(1).map((line, idx) => {
-    const cells = line.match(/(".*?"|[^,]+|(?<=,)(?=,)|^(?=,)|(?<=,)$)/g) || line.split(',');
-    const c = i => (cells[i] || '').replace(/^"|"$/g, '').trim();
-    const name = col.name >= 0 ? c(col.name) : '';
-    if (!name) return null;
-    return {
-      id: 'sheet_' + idx,
-      name,
-      ai: col.ai >= 0 ? c(col.ai) : '',
-      epa: col.epa >= 0 ? c(col.epa) : '',
-      signal: (col.signal >= 0 ? c(col.signal) : 'CAUTION').toUpperCase() || 'CAUTION',
-      tox: col.tox >= 0 ? c(col.tox) : 'III',
-      pests: col.pests >= 0 ? c(col.pests) : '',
-      ppe: col.ppe >= 0 ? c(col.ppe) : '',
-      fa: {
-        skin: col.fa_skin >= 0 ? c(col.fa_skin) : '',
-        eye: col.fa_eye >= 0 ? c(col.fa_eye) : '',
-        inhale: col.fa_inhale >= 0 ? c(col.fa_inhale) : ''
-      },
-      storage: col.storage >= 0 ? c(col.storage) : '',
-      rei: col.rei >= 0 ? c(col.rei) : '',
-ru: col.ru >= 0 ? c(col.ru) : 'No',
-sds: col.sds >= 0 ? c(col.sds) : '',      fromSheet: true
-    };
+  return lines.slice(1).map((line,idx)=>{
+    const cells = line.match(/(".*?"|[^,]+|(?<=,)(?=,)|^(?=,)|(?<=,)$)/g)||line.split(',');
+    const c = i=>(cells[i]||'').replace(/^"|"$/g,'').trim();
+    const name = col.name>=0?c(col.name):'';
+    if(!name) return null;
+    return { id:'sheet_'+idx, name, ai:col.ai>=0?c(col.ai):'', epa:col.epa>=0?c(col.epa):'',
+      signal:(col.signal>=0?c(col.signal):'CAUTION').toUpperCase()||'CAUTION',
+      tox:col.tox>=0?c(col.tox):'III', pests:col.pests>=0?c(col.pests):'',
+      ppe:col.ppe>=0?c(col.ppe):'',
+      fa:{skin:col.fa_skin>=0?c(col.fa_skin):'',eye:col.fa_eye>=0?c(col.fa_eye):'',inhale:col.fa_inhale>=0?c(col.fa_inhale):''},
+      storage:col.storage>=0?c(col.storage):'', rei:col.rei>=0?c(col.rei):'',
+      ru:col.ru>=0?c(col.ru):'No', sds:col.sds>=0?c(col.sds):'', fromSheet:true };
   }).filter(Boolean);
 }
 
 async function loadSheet() {
-  const dot = document.getElementById('status-dot');
-  const statusEl = document.getElementById('status-text');
+  const dot=document.getElementById('status-dot'), statusEl=document.getElementById('status-text');
   try {
-    const res = await fetch(SHEET_URL);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const text = await res.text();
-    sheetProducts = parseCSV(text);
-    localStorage.setItem(CACHE_KEY, JSON.stringify({ts: Date.now(), data: sheetProducts}));
-    dot.className = 'status-dot ok';
-    statusEl.textContent = sheetProducts.length + ' products loaded from Google Sheets';
+    const res=await fetch(SHEET_URL);
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const text=await res.text();
+    sheetProducts=parseCSV(text);
+    localStorage.setItem(CACHE_KEY,JSON.stringify({ts:Date.now(),data:sheetProducts}));
+    dot.className='sdot ok';
+    statusEl.textContent=sheetProducts.length+' products loaded';
     showDefaultSearch();
   } catch(e) {
-    const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
-    if (cached) {
-      sheetProducts = cached.data;
-      dot.className = 'status-dot';
-      const ago = Math.round((Date.now() - cached.ts) / 60000);
-      statusEl.textContent = 'Offline — using cached data (' + ago + ' min ago)';
-      document.getElementById('offline-banner').style.display = 'block';
-    } else {
-      dot.className = 'status-dot err';
-      statusEl.textContent = 'Could not load sheet — check connection';
-    }
+    const cached=JSON.parse(localStorage.getItem(CACHE_KEY)||'null');
+    if(cached){sheetProducts=cached.data;dot.className='sdot';const ago=Math.round((Date.now()-cached.ts)/60000);statusEl.textContent='Offline — cached '+ago+' min ago';document.getElementById('offline-banner').style.display='block';}
+    else{dot.className='sdot err';statusEl.textContent='Could not load — check connection';}
     showDefaultSearch();
   }
 }
 
-function showDefaultSearch() {
-  const ra = document.getElementById('results-area');
-  const total = allProducts().length;
-  ra.innerHTML = `<div class="empty-state">${total} products in inventory. Search by name, active ingredient, or EPA reg. no.<br><br>In an emergency, call Poison Control: <strong>1-800-222-1222</strong></div>`;
+function sigClass(s){if(s==='DANGER')return 'sig-danger';if(s==='WARNING')return 'sig-warning';return 'sig-caution';}
+
+function showDefaultSearch(){
+  const total=allProducts().length;
+  document.getElementById('results-area').innerHTML=`<div class="empty-state">${total} products in inventory.<br>Search by name, active ingredient, or EPA reg. no.<span class="empty-emerg">Emergency: 1-800-222-1222</span></div>`;
 }
 
-function doSearch() {
-  const q = document.getElementById('search-input').value.trim().toLowerCase();
-  document.getElementById('detail-area').style.display = 'none';
-  const ra = document.getElementById('results-area');
-  ra.style.display = 'block';
-  if (!q) { showDefaultSearch(); return; }
-  const matches = allProducts().filter(p =>
-    p.name.toLowerCase().includes(q) ||
-    (p.ai||'').toLowerCase().includes(q) ||
-    (p.epa||'').toLowerCase().includes(q) ||
-    (p.pests||'').toLowerCase().includes(q)
-  );
-  if (!matches.length) {
-    ra.innerHTML = `<div class="empty-state">No products found for "<strong>${q}</strong>".<br>Add it to your inventory, or look it up:<br><br>
-      <a class="sds-link" href="https://www.epa.gov/pesticide-registration/pesticide-product-label-system-ppls" target="_blank">EPA PPLS →</a>&nbsp;
-      <a class="sds-link" href="https://npic.orst.edu" target="_blank">NPIC →</a></div>`;
-    return;
-  }
-  ra.innerHTML = matches.map(p => `
-    <div class="result-item" onclick="showDetail('${p.id}')">
-      <div style="min-width:0">
-        <div class="result-name">${p.name}${p.fromSheet ? '' : ' <span style="font-size:11px;color:var(--text3);font-family:var(--mono)">[local]</span>'}</div>
-        <div class="result-meta">${[p.ai, p.epa ? 'EPA '+p.epa : '', p.pests].filter(Boolean).join(' · ')}</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
-        <span class="sig-badge sig-${p.signal||'CAUTION'}">${p.signal||'CAUTION'}</span>
-        <span class="result-arrow">›</span>
-      </div>
-    </div>`).join('');
+function doSearch(){
+  const q=document.getElementById('search-input').value.trim().toLowerCase();
+  document.getElementById('detail-area').style.display='none';
+  const ra=document.getElementById('results-area');
+  ra.style.display='block';
+  if(!q){showDefaultSearch();return;}
+  const matches=allProducts().filter(p=>p.name.toLowerCase().includes(q)||(p.ai||'').toLowerCase().includes(q)||(p.epa||'').toLowerCase().includes(q)||(p.pests||'').toLowerCase().includes(q));
+  if(!matches.length){ra.innerHTML=`<div class="empty-state">No products found for "<strong>${q}</strong>".<br><a class="sds-link" style="margin-top:12px;display:inline-block" href="https://www.epa.gov/pesticide-registration/pesticide-product-label-system-ppls" target="_blank">Search EPA PPLS →</a></div>`;return;}
+  ra.innerHTML=matches.map(p=>`<div class="result-card ${sigClass(p.signal)}" onclick="showDetail('${p.id}')">
+    <div style="min-width:0"><div class="result-name">${p.name}</div><div class="result-meta">${[p.ai,p.epa?'EPA '+p.epa:''].filter(Boolean).join(' · ')}</div></div>
+    <div class="result-right"><span class="badge badge-${p.signal||'CAUTION'}">${p.signal||'CAUTION'}</span><span class="result-arrow">›</span></div>
+  </div>`).join('');
 }
 
-function showDetail(id) {
-  const p = allProducts().find(x => x.id === id);
-  if (!p) return;
-  document.getElementById('results-area').style.display = 'none';
-  const det = document.getElementById('detail-area');
-  det.style.display = 'block';
-  const ppePills = (p.ppe||'').split(',').map(s => s.trim()).filter(Boolean).map(s => `<span class="ppe-pill">${s}</span>`).join('');
-  det.innerHTML = `
-    <button class="back-btn" onclick="backToSearch()">&#8592; Back to results</button>
-    <div class="detail-card">
-      <div class="detail-header">
-        <div class="detail-name">${p.name}</div>
-        <div class="detail-ai">${p.ai||''}</div>
-        <div class="detail-pills">
-          <span class="sig-badge sig-${p.signal||'CAUTION'}">${p.signal||'CAUTION'}</span>
-          ${p.epa ? `<span class="meta-pill">EPA ${p.epa}</span>` : ''}
-          ${p.tox ? `<span class="meta-pill">Cat. ${p.tox}</span>` : ''}
-          ${p.rei ? `<span class="meta-pill">REI: ${p.rei}</span>` : ''}
-          ${p.ru === 'Yes' ? '<span class="meta-pill rup-pill">Restricted Use (RUP)</span>' : ''}
-        </div>
+function showDetail(id){
+  const p=allProducts().find(x=>x.id===id);
+  if(!p) return;
+  document.getElementById('results-area').style.display='none';
+  const det=document.getElementById('detail-area');
+  det.style.display='block';
+  const ppePills=(p.ppe||'').split(',').map(s=>s.trim()).filter(Boolean).map(s=>`<span class="ppe-pill">${s}</span>`).join('');
+  det.innerHTML=`
+    <button class="back-btn" onclick="backToSearch()">← Back</button>
+    <div class="detail-name">${p.name}</div>
+    <div class="detail-ai">${p.ai||''}</div>
+    <div class="detail-pills">
+      <span class="badge badge-${p.signal||'CAUTION'}">${p.signal||'CAUTION'}</span>
+      ${p.epa?`<span class="pill">EPA ${p.epa}</span>`:''}
+      ${p.tox?`<span class="pill">Cat. ${p.tox}</span>`:''}
+      ${p.rei?`<span class="pill">REI ${p.rei}</span>`:''}
+      ${p.ru==='Yes'?'<span class="pill pill-rup">Restricted Use</span>':''}
+    </div>
+    <div class="fa-block">
+      <div class="sec-label">⚠ First aid — emergency response</div>
+      <div class="fa-grid">
+        <div class="fa-item"><div class="fa-type">Skin</div><div class="fa-text">${p.fa?.skin||'See product label.'}</div></div>
+        <div class="fa-item"><div class="fa-type">Eyes</div><div class="fa-text">${p.fa?.eye||'See product label.'}</div></div>
+        <div class="fa-item"><div class="fa-type">Inhalation</div><div class="fa-text">${p.fa?.inhale||'See product label.'}</div></div>
+        <div class="fa-item"><div class="fa-type">Ingestion</div><div class="fa-text">Do NOT induce vomiting. Call Poison Control 1-800-222-1222 or 911 immediately.</div></div>
       </div>
-
-      <div class="fa-block">
-        <div class="block-label">&#9888; First aid — emergency response</div>
-        <div class="fa-grid">
-          <div class="fa-item"><div class="fa-type">Skin contact</div><p>${p.fa?.skin || 'See product label.'}</p></div>
-          <div class="fa-item"><div class="fa-type">Eye contact</div><p>${p.fa?.eye || 'See product label.'}</p></div>
-          <div class="fa-item"><div class="fa-type">Inhalation</div><p>${p.fa?.inhale || 'See product label.'}</p></div>
-          <div class="fa-item"><div class="fa-type">Ingestion</div><p>Do NOT induce vomiting. Call Poison Control (1-800-222-1222) or 911 immediately. Have product label ready.</p></div>
-        </div>
+    </div>
+    ${ppePills?`<div class="info-block"><div class="sec-label">PPE required</div><div class="ppe-pills">${ppePills}</div></div>`:''}
+    <div class="info-block">
+      <div class="sec-label">Compliance</div>
+      <div class="comp-grid">
+        <div class="comp-box"><div class="comp-val">${p.epa||'—'}</div><div class="comp-lbl">EPA Reg.</div></div>
+        <div class="comp-box"><div class="comp-val">${p.signal||'—'}</div><div class="comp-lbl">Signal</div></div>
+        <div class="comp-box"><div class="comp-val">Cat. ${p.tox||'—'}</div><div class="comp-lbl">Toxicity</div></div>
+        <div class="comp-box"><div class="comp-val">${p.rei||'—'}</div><div class="comp-lbl">REI</div></div>
+        <div class="comp-box"><div class="comp-val">${p.ru==='Yes'?'RUP':'General'}</div><div class="comp-lbl">Use class</div></div>
       </div>
-
-      ${ppePills ? `<div class="detail-section"><div class="block-label">PPE required</div><div class="ppe-pills">${ppePills}</div></div>` : ''}
-
-      <div class="detail-section">
-        <div class="block-label">Compliance &amp; label info</div>
-        <div class="comp-grid">
-          <div class="comp-box"><div class="comp-val">${p.epa||'—'}</div><div class="comp-lbl">EPA Reg. No.</div></div>
-          <div class="comp-box"><div class="comp-val">${p.signal||'—'}</div><div class="comp-lbl">Signal word</div></div>
-          <div class="comp-box"><div class="comp-val">Cat. ${p.tox||'—'}</div><div class="comp-lbl">Toxicity</div></div>
-          <div class="comp-box"><div class="comp-val">${p.rei||'See label'}</div><div class="comp-lbl">REI</div></div>
-          <div class="comp-box"><div class="comp-val">${p.ru==='Yes'?'RUP':'General'}</div><div class="comp-lbl">Use class</div></div>
-        </div>
-      </div>
-
-      ${p.pests ? `<div class="detail-section"><div class="block-label">Labeled target pests</div><p class="info-text">${p.pests}</p></div>` : ''}
-      ${p.storage ? `<div class="detail-section"><div class="block-label">Storage &amp; handling</div><p class="info-text">${p.storage}</p></div>` : ''}
-
-      <div class="detail-section">
-        <div class="block-label">Full label &amp; SDS</div>
-        <div class="sds-links">
-          <a class="sds-link" href="https://www.epa.gov/pesticide-registration/pesticide-product-label-system-ppls" target="_blank">EPA PPLS →</a>
-          <a class="sds-link" href="https://npic.orst.edu" target="_blank">NPIC →</a>
-         ${p.sds ? `<a class="sds-link" href="${p.sds}" target="_blank">SDS →</a>` : ''}
-        </div>
+    </div>
+    ${p.pests?`<div class="info-block"><div class="sec-label">Target pests</div><div class="info-text">${p.pests}</div></div>`:''}
+    ${p.storage?`<div class="info-block"><div class="sec-label">Storage &amp; handling</div><div class="info-text">${p.storage}</div></div>`:''}
+    <div class="info-block">
+      <div class="sec-label">Label &amp; SDS</div>
+      <div class="sds-row">
+        ${p.sds?`<a class="sds-link" href="${p.sds}" target="_blank">View SDS →</a>`:''}
+        <a class="sds-link" href="https://www.epa.gov/pesticide-registration/pesticide-product-label-system-ppls" target="_blank">EPA PPLS →</a>
+        <a class="sds-link" href="https://npic.orst.edu" target="_blank">NPIC →</a>
       </div>
     </div>`;
 }
 
-function backToSearch() {
-  document.getElementById('detail-area').style.display = 'none';
-  document.getElementById('results-area').style.display = 'block';
+function backToSearch(){
+  document.getElementById('detail-area').style.display='none';
+  document.getElementById('results-area').style.display='block';
 }
 
-function switchTab(t) {
-  activeTab = t;
-  document.getElementById('tab-search').style.display = t === 'search' ? 'block' : 'none';
-  document.getElementById('tab-manage').style.display = t === 'manage' ? 'block' : 'none';
-  document.querySelectorAll('.tab-btn').forEach((el, i) => el.classList.toggle('active', (t==='search'&&i===0)||(t==='manage'&&i===1)));
-  if (t === 'manage') renderManage();
+function switchTab(t){
+  document.getElementById('tab-search').style.display=t==='search'?'block':'none';
+  document.getElementById('tab-manage').style.display=t==='manage'?'block':'none';
+  document.querySelectorAll('.tab-btn').forEach((el,i)=>el.classList.toggle('active',(t==='search'&&i===0)||(t==='manage'&&i===1)));
+  if(t==='manage') renderManage();
 }
 
-function saveProduct() {
-  const name = document.getElementById('f-name').value.trim();
-  if (!name) { alert('Product name is required.'); return; }
-  const p = {
-    id: 'local_' + Date.now(),
-    name,
-    ai: document.getElementById('f-ai').value.trim(),
-    epa: document.getElementById('f-epa').value.trim(),
-    signal: document.getElementById('f-signal').value,
-    tox: document.getElementById('f-tox').value,
-    pests: document.getElementById('f-pests').value.trim(),
-    ppe: document.getElementById('f-ppe').value.trim(),
-    fa: {
-      skin: document.getElementById('f-fa-skin').value.trim(),
-      eye: document.getElementById('f-fa-eye').value.trim(),
-      inhale: document.getElementById('f-fa-inhale').value.trim()
-    },
-    storage: document.getElementById('f-storage').value.trim(),
-    rei: document.getElementById('f-rei').value.trim(),
-    ru: document.getElementById('f-ru').value,
-    fromSheet: false
-  };
+function saveProduct(){
+  const name=document.getElementById('f-name').value.trim();
+  if(!name){alert('Product name is required.');return;}
+  const p={id:'local_'+Date.now(),name,ai:document.getElementById('f-ai').value.trim(),epa:document.getElementById('f-epa').value.trim(),signal:document.getElementById('f-signal').value,tox:document.getElementById('f-tox').value,pests:document.getElementById('f-pests').value.trim(),ppe:document.getElementById('f-ppe').value.trim(),fa:{skin:document.getElementById('f-fa-skin').value.trim(),eye:document.getElementById('f-fa-eye').value.trim(),inhale:document.getElementById('f-fa-inhale').value.trim()},storage:document.getElementById('f-storage').value.trim(),rei:document.getElementById('f-rei').value.trim(),ru:document.getElementById('f-ru').value,sds:document.getElementById('f-sds').value.trim(),fromSheet:false};
   localProducts.push(p);
-  localStorage.setItem(LOCAL_KEY, JSON.stringify(localProducts));
-  ['f-name','f-ai','f-epa','f-ppe','f-pests','f-fa-skin','f-fa-eye','f-fa-inhale','f-storage','f-rei'].forEach(id => document.getElementById(id).value = '');
+  localStorage.setItem(LOCAL_KEY,JSON.stringify(localProducts));
+  ['f-name','f-ai','f-epa','f-ppe','f-pests','f-fa-skin','f-fa-eye','f-fa-inhale','f-storage','f-rei','f-sds'].forEach(id=>document.getElementById(id).value='');
   renderManage();
-  alert(name + ' saved to local inventory.');
+  alert(name+' saved.');
 }
 
-function deleteProduct(id) {
-  if (!confirm('Remove this product?')) return;
-  localProducts = localProducts.filter(p => p.id !== id);
-  localStorage.setItem(LOCAL_KEY, JSON.stringify(localProducts));
+function deleteProduct(id){
+  if(!confirm('Remove this product?')) return;
+  localProducts=localProducts.filter(p=>p.id!==id);
+  localStorage.setItem(LOCAL_KEY,JSON.stringify(localProducts));
   renderManage();
 }
 
-function renderManage() {
-  const el = document.getElementById('manage-list');
-  const sheet = sheetProducts.length;
-  const local = localProducts.length;
-  if (!sheet && !local) { el.innerHTML = '<div style="font-size:13px;color:var(--text3)">No products in inventory.</div>'; return; }
-  el.innerHTML = `
-    <div style="font-size:12px;color:var(--text3);font-family:var(--mono);margin-bottom:10px">${sheet} from Google Sheets · ${local} local additions</div>
-    <div style="overflow-x:auto">
-    <table class="inv-table">
-      <thead><tr><th>Product</th><th>Active ingredient</th><th>EPA Reg.</th><th>Signal</th><th>RUP</th><th></th></tr></thead>
-      <tbody>
-        ${sheetProducts.map(p => `<tr>
-          <td style="font-weight:500">${p.name}</td>
-          <td style="color:var(--text2)">${p.ai||'—'}</td>
-          <td style="font-family:var(--mono);font-size:12px">${p.epa||'—'}</td>
-          <td><span class="sig-badge sig-${p.signal||'CAUTION'}">${p.signal||'—'}</span></td>
-          <td style="color:var(--text2)">${p.ru==='Yes'?'Yes':'No'}</td>
-          <td><span style="font-size:11px;color:var(--text3);font-family:var(--mono)">sheet</span></td>
-        </tr>`).join('')}
-        ${localProducts.map(p => `<tr>
-          <td style="font-weight:500">${p.name}</td>
-          <td style="color:var(--text2)">${p.ai||'—'}</td>
-          <td style="font-family:var(--mono);font-size:12px">${p.epa||'—'}</td>
-          <td><span class="sig-badge sig-${p.signal||'CAUTION'}">${p.signal||'—'}</span></td>
-          <td style="color:var(--text2)">${p.ru==='Yes'?'Yes':'No'}</td>
-          <td><button class="del-btn" onclick="deleteProduct('${p.id}')">Remove</button></td>
-        </tr>`).join('')}
-      </tbody>
-    </table></div>`;
+function renderManage(){
+  const el=document.getElementById('manage-list');
+  const all=allProducts();
+  if(!all.length){el.innerHTML='<div style="font-size:13px;color:var(--white3)">No products in inventory.</div>';return;}
+  el.innerHTML=`<div style="font-size:11px;color:var(--white3);margin-bottom:10px;letter-spacing:0.06em;text-transform:uppercase">${sheetProducts.length} from sheet · ${localProducts.length} local</div>
+  <div class="inv-wrap"><table class="inv-table">
+    <thead><tr><th>Product</th><th>Signal</th><th>RUP</th><th></th></tr></thead>
+    <tbody>
+      ${sheetProducts.map(p=>`<tr><td><strong style="color:var(--white)">${p.name}</strong><br><span style="font-size:11px;color:var(--white3)">${p.ai||''}</span></td><td><span class="badge badge-${p.signal||'CAUTION'}">${p.signal||'—'}</span></td><td style="color:var(--white3)">${p.ru==='Yes'?'Yes':'No'}</td><td><span style="font-size:11px;color:var(--white3)">sheet</span></td></tr>`).join('')}
+      ${localProducts.map(p=>`<tr><td><strong style="color:var(--white)">${p.name}</strong><br><span style="font-size:11px;color:var(--white3)">${p.ai||''}</span></td><td><span class="badge badge-${p.signal||'CAUTION'}">${p.signal||'—'}</span></td><td style="color:var(--white3)">${p.ru==='Yes'?'Yes':'No'}</td><td><button class="del-btn" onclick="deleteProduct('${p.id}')">Remove</button></td></tr>`).join('')}
+    </tbody>
+  </table></div>`;
 }
 
-window.addEventListener('online', () => { document.getElementById('offline-banner').style.display = 'none'; loadSheet(); });
-window.addEventListener('offline', () => { document.getElementById('offline-banner').style.display = 'block'; });
-
+window.addEventListener('online',()=>{document.getElementById('offline-banner').style.display='none';loadSheet();});
+window.addEventListener('offline',()=>{document.getElementById('offline-banner').style.display='block';});
 loadSheet();
 </script>
 </body>
