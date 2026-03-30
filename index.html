@@ -628,8 +628,8 @@ sds: find('sds url', ['sds','sds link','sds_url'])
       },
       storage: col.storage >= 0 ? c(col.storage) : '',
       rei: col.rei >= 0 ? c(col.rei) : '',
-      ru: col.ru >= 0 ? c(col.ru) : 'No',
-      fromSheet: true
+ru: col.ru >= 0 ? c(col.ru) : 'No',
+sds: col.sds >= 0 ? c(col.sds) : '',      fromSheet: true
     };
   }).filter(Boolean);
 }
@@ -752,8 +752,7 @@ function showDetail(id) {
         <div class="sds-links">
           <a class="sds-link" href="https://www.epa.gov/pesticide-registration/pesticide-product-label-system-ppls" target="_blank">EPA PPLS →</a>
           <a class="sds-link" href="https://npic.orst.edu" target="_blank">NPIC →</a>
-          <a class="sds-link" href="https://www.cdms.net/LDat/ld${encodeURIComponent(p.epa||'')}.pdf" target="_blank">CDMS label →</a>
-          <a class="sds-link" href="https://www.cdms.net/LDat/ldMSDS.asp?brand=${encodeURIComponent(p.name)}" target="_blank">SDS →</a>
+         ${p.sds ? `<a class="sds-link" href="${p.sds}" target="_blank">SDS →</a>` : ''}
         </div>
       </div>
     </div>`;
