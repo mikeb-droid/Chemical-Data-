@@ -604,7 +604,8 @@ function parseCSV(text) {
     fa_inhale: find('fa inhale', ['inhale','inhalation','first aid inhale']),
     storage: find('storage', ['store','handling']),
     rei: find('rei', ['re-entry','reentry']),
-    ru: find('restricted use', ['restricted','rup'])
+   ru: find('restricted use', ['restricted','rup']),
+sds: find('sds url', ['sds','sds link','sds_url'])
   };
   return lines.slice(1).map((line, idx) => {
     const cells = line.match(/(".*?"|[^,]+|(?<=,)(?=,)|^(?=,)|(?<=,)$)/g) || line.split(',');
