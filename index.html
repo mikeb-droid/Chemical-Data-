@@ -4,32 +4,36 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-<meta name="theme-color" content="#0f1923"/>
+<meta name="theme-color" content="#0f1008"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-title" content="Chem Safety"/>
-<title>Chemical Safety</title>
+<meta name="apple-mobile-web-app-title" content="TPC Safety"/>
+<title>The Pest Company — Chemical Safety</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
 :root {
-  --black: #0f1923;
-  --black2: #1a2633;
-  --black3: #243040;
-  --white: #f5f7f9;
-  --white2: #dde3ea;
-  --white3: #a8b4c0;
+  --black: #0f1008;
+  --black2: #1a1c0e;
+  --black3: #252810;
+  --black4: #2e3214;
+  --white: #f7f6ee;
+  --white2: #dedad0;
+  --white3: #9a9680;
+  --gold: #f4a629;
+  --gold-dark: #c07d10;
+  --gold-light: #ffc45a;
+  --gold-bg: #1a1205;
   --red: #e63946;
   --red-dark: #b02030;
   --red-bg: #1f0a0c;
   --red-light: #ff6b74;
   --amber: #f4a629;
-  --amber-bg: #1f1508;
   --green: #3dba6f;
   --green-bg: #081a0f;
   --blue: #4a9eff;
-  --blue-bg: #071624;
+  --blue-bg: #060e1a;
   --condensed: 'Barlow Condensed', sans-serif;
   --body: 'Barlow', sans-serif;
 }
@@ -37,75 +41,100 @@
 html { font-size: 16px; -webkit-text-size-adjust: 100%; }
 body { font-family: var(--body); background: var(--black); color: var(--white); min-height: 100dvh; line-height: 1.5; }
 
+/* HEADER */
 .header {
   background: var(--black);
-  border-bottom: 2px solid var(--red);
-  padding: 12px 16px;
-  padding-top: calc(12px + env(safe-area-inset-top));
+  border-bottom: 3px solid var(--gold);
+  padding: 10px 16px;
+  padding-top: calc(10px + env(safe-area-inset-top));
   display: flex; align-items: center; justify-content: space-between;
   position: sticky; top: 0; z-index: 100;
 }
-.header-title { font-family: var(--condensed); font-size: 22px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1; }
-.header-sub { font-size: 11px; color: var(--white3); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+.header-brand { display: flex; flex-direction: column; gap: 0; }
+.header-company {
+  font-family: var(--condensed);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--gold); line-height: 1;
+}
+.header-title {
+  font-family: var(--condensed);
+  font-size: 20px; font-weight: 800;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--white); line-height: 1.1;
+}
 .poison-btn {
   background: var(--red); color: #fff;
-  font-family: var(--condensed); font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-  padding: 8px 14px; border-radius: 4px; text-decoration: none; white-space: nowrap; transition: background 0.15s;
+  font-family: var(--condensed); font-size: 13px; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 8px 12px; border-radius: 4px; text-decoration: none;
+  white-space: nowrap; transition: background 0.15s;
 }
 .poison-btn:hover { background: var(--red-dark); }
 
+/* EMERGENCY BAR */
 .emerg-bar {
   background: var(--red-bg); border-bottom: 1px solid var(--red-dark);
-  padding: 8px 16px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 7px 16px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
 }
 .emerg-label { font-family: var(--condensed); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red-light); }
 .emerg-links { display: flex; gap: 8px; flex-wrap: wrap; }
-.emerg-link { font-size: 13px; font-weight: 600; color: var(--red-light); text-decoration: none; border: 1px solid var(--red-dark); border-radius: 4px; padding: 4px 10px; background: rgba(230,57,70,0.1); }
+.emerg-link { font-size: 13px; font-weight: 600; color: var(--red-light); text-decoration: none; border: 1px solid var(--red-dark); border-radius: 4px; padding: 3px 10px; background: rgba(230,57,70,0.1); }
 
+/* MAIN */
 .main { max-width: 640px; margin: 0 auto; padding: 14px 14px 40px; }
 
-.tabs { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--black3); border-radius: 6px; overflow: hidden; margin-bottom: 14px; }
-.tab-btn { padding: 12px; font-family: var(--condensed); font-size: 15px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: var(--black2); border: none; border-right: 1px solid var(--black3); cursor: pointer; color: var(--white3); transition: all 0.15s; }
+/* TABS */
+.tabs { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--black4); border-radius: 6px; overflow: hidden; margin-bottom: 14px; }
+.tab-btn { padding: 12px; font-family: var(--condensed); font-size: 15px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: var(--black2); border: none; border-right: 1px solid var(--black4); cursor: pointer; color: var(--white3); transition: all 0.15s; }
 .tab-btn:last-child { border-right: none; }
-.tab-btn.active { background: var(--black3); color: var(--white); }
+.tab-btn.active { background: var(--black3); color: var(--gold); border-bottom: 2px solid var(--gold); }
 
+/* SEARCH */
 .search-wrap { position: relative; margin-bottom: 10px; }
-.search-input { width: 100%; padding: 14px 46px 14px 16px; font-family: var(--body); font-size: 16px; font-weight: 500; background: var(--black2); border: 1.5px solid var(--black3); border-radius: 6px; color: var(--white); outline: none; -webkit-appearance: none; transition: border-color 0.15s; }
-.search-input:focus { border-color: var(--blue); }
+.search-input { width: 100%; padding: 14px 46px 14px 16px; font-family: var(--body); font-size: 16px; font-weight: 500; background: var(--black2); border: 1.5px solid var(--black4); border-radius: 6px; color: var(--white); outline: none; -webkit-appearance: none; transition: border-color 0.15s; }
+.search-input:focus { border-color: var(--gold); }
 .search-input::placeholder { color: var(--white3); }
 .search-icon { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--white3); font-size: 20px; pointer-events: none; }
 
+/* STATUS */
 .status-bar { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--white3); margin-bottom: 12px; display: flex; align-items: center; gap: 7px; }
-.sdot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
+.sdot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
 .sdot.ok { background: var(--green); }
 .sdot.err { background: var(--red); }
 
-.result-card { background: var(--black2); border: 1px solid var(--black3); border-left: 4px solid var(--black3); border-radius: 6px; padding: 14px 16px; margin-bottom: 8px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; transition: border-color 0.15s, background 0.15s; -webkit-tap-highlight-color: transparent; }
+/* RESULT CARDS */
+.result-card { background: var(--black2); border: 1px solid var(--black4); border-left: 4px solid var(--black4); border-radius: 6px; padding: 14px 16px; margin-bottom: 8px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; transition: all 0.15s; -webkit-tap-highlight-color: transparent; }
 .result-card:active { background: var(--black3); }
 .result-card.sig-danger { border-left-color: var(--red); }
-.result-card.sig-warning { border-left-color: var(--amber); }
+.result-card.sig-warning { border-left-color: var(--gold); }
 .result-card.sig-caution { border-left-color: var(--green); }
 .result-name { font-family: var(--condensed); font-size: 19px; font-weight: 700; letter-spacing: 0.02em; color: var(--white); line-height: 1.2; margin-bottom: 3px; }
 .result-meta { font-size: 12px; color: var(--white3); line-height: 1.4; }
 .result-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .result-arrow { color: var(--white3); font-size: 24px; font-weight: 300; }
 
+/* BADGES */
 .badge { font-family: var(--condensed); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; border-radius: 3px; white-space: nowrap; }
 .badge-DANGER { background: var(--red-bg); color: var(--red-light); border: 1px solid var(--red-dark); }
-.badge-WARNING { background: var(--amber-bg); color: var(--amber); border: 1px solid #5a3a00; }
+.badge-WARNING { background: var(--gold-bg); color: var(--gold); border: 1px solid var(--gold-dark); }
 .badge-CAUTION { background: var(--green-bg); color: var(--green); border: 1px solid #1a5030; }
 
+/* BACK */
 .back-btn { background: none; border: none; font-family: var(--condensed); font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--white3); cursor: pointer; padding: 0 0 14px; display: flex; align-items: center; gap: 6px; }
-.back-btn:hover { color: var(--white); }
+.back-btn:hover { color: var(--gold); }
 
+/* DETAIL */
 .detail-name { font-family: var(--condensed); font-size: 30px; font-weight: 800; letter-spacing: 0.02em; text-transform: uppercase; line-height: 1.1; margin-bottom: 4px; }
 .detail-ai { font-size: 13px; color: var(--white3); margin-bottom: 12px; }
 .detail-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
-.pill { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 3px; background: var(--black3); color: var(--white2); border: 1px solid #2e3d50; }
+.pill { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 3px; background: var(--black3); color: var(--white2); border: 1px solid var(--black4); }
 .pill-rup { background: var(--red-bg); color: var(--red-light); border-color: var(--red-dark); }
 
+/* SECTION LABEL */
 .sec-label { font-family: var(--condensed); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--white3); margin-bottom: 10px; }
 
+/* FIRST AID */
 .fa-block { background: var(--red-bg); border: 1px solid var(--red-dark); border-left: 4px solid var(--red); border-radius: 6px; padding: 14px; margin-bottom: 12px; }
 .fa-block .sec-label { color: var(--red-light); margin-bottom: 12px; }
 .fa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -113,43 +142,53 @@ body { font-family: var(--body); background: var(--black); color: var(--white); 
 .fa-type { font-family: var(--condensed); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red-light); margin-bottom: 5px; }
 .fa-text { font-size: 13px; color: #f0c0c2; line-height: 1.5; }
 
-.info-block { background: var(--black2); border: 1px solid var(--black3); border-radius: 6px; padding: 14px; margin-bottom: 10px; }
+/* INFO BLOCKS */
+.info-block { background: var(--black2); border: 1px solid var(--black4); border-radius: 6px; padding: 14px; margin-bottom: 10px; }
 .ppe-pills { display: flex; flex-wrap: wrap; gap: 6px; }
-.ppe-pill { font-size: 13px; font-weight: 500; padding: 5px 12px; border-radius: 4px; background: var(--blue-bg); color: var(--blue); border: 1px solid #1a3a5a; }
+.ppe-pill { font-size: 13px; font-weight: 500; padding: 5px 12px; border-radius: 4px; background: var(--gold-bg); color: var(--gold-light); border: 1px solid var(--gold-dark); }
 
+/* COMPLIANCE GRID */
 .comp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(85px, 1fr)); gap: 8px; }
 .comp-box { background: var(--black3); border-radius: 4px; padding: 10px; text-align: center; }
 .comp-val { font-family: var(--condensed); font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 3px; line-height: 1.2; }
 .comp-lbl { font-size: 10px; color: var(--white3); letter-spacing: 0.06em; text-transform: uppercase; }
 .info-text { font-size: 14px; color: var(--white2); line-height: 1.6; }
 
+/* SDS LINKS */
 .sds-row { display: flex; flex-wrap: wrap; gap: 8px; }
-.sds-link { font-family: var(--condensed); font-size: 14px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 9px 16px; border-radius: 4px; border: 1px solid var(--black3); color: var(--blue); text-decoration: none; background: var(--blue-bg); }
+.sds-link { font-family: var(--condensed); font-size: 14px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 9px 16px; border-radius: 4px; border: 1px solid var(--gold-dark); color: var(--gold); text-decoration: none; background: var(--gold-bg); }
+.sds-link:hover { background: #251a05; }
 
+/* EMPTY STATE */
 .empty-state { text-align: center; padding: 48px 20px; color: var(--white3); font-size: 14px; line-height: 1.8; }
 .empty-emerg { display: block; margin-top: 12px; font-family: var(--condensed); font-size: 22px; font-weight: 800; letter-spacing: 0.04em; color: var(--red-light); }
 
-.offline-banner { background: var(--amber-bg); border: 1px solid #5a3a00; border-radius: 4px; padding: 8px 12px; font-size: 12px; font-weight: 600; color: var(--amber); margin-bottom: 12px; display: none; }
+/* OFFLINE */
+.offline-banner { background: var(--gold-bg); border: 1px solid var(--gold-dark); border-radius: 4px; padding: 8px 12px; font-size: 12px; font-weight: 600; color: var(--gold); margin-bottom: 12px; display: none; }
 
-.manage-card { background: var(--black2); border: 1px solid var(--black3); border-radius: 6px; padding: 16px; margin-bottom: 12px; }
-.manage-title { font-family: var(--condensed); font-size: 16px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white2); margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--black3); }
+/* MANAGE */
+.manage-card { background: var(--black2); border: 1px solid var(--black4); border-radius: 6px; padding: 16px; margin-bottom: 12px; }
+.manage-title { font-family: var(--condensed); font-size: 16px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white2); margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--black4); }
 .notice { font-size: 12px; color: var(--white3); background: var(--black3); border-radius: 4px; padding: 8px 12px; margin-bottom: 12px; line-height: 1.5; }
 .form-grid { display: grid; gap: 10px; }
 .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
 .form-field { display: flex; flex-direction: column; gap: 5px; }
 .form-label { font-family: var(--condensed); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white3); }
-.form-grid input, .form-grid select, .form-grid textarea { width: 100%; padding: 10px 12px; font-family: var(--body); font-size: 14px; background: var(--black); border: 1.5px solid var(--black3); border-radius: 4px; color: var(--white); outline: none; -webkit-appearance: none; transition: border-color 0.15s; }
-.form-grid input:focus, .form-grid select:focus, .form-grid textarea:focus { border-color: var(--blue); }
+.form-grid input, .form-grid select, .form-grid textarea { width: 100%; padding: 10px 12px; font-family: var(--body); font-size: 14px; background: var(--black); border: 1.5px solid var(--black4); border-radius: 4px; color: var(--white); outline: none; -webkit-appearance: none; transition: border-color 0.15s; }
+.form-grid input:focus, .form-grid select:focus, .form-grid textarea:focus { border-color: var(--gold); }
 .form-grid textarea { height: 64px; resize: none; }
-.save-btn { padding: 12px 24px; background: var(--blue); color: var(--black); border: none; border-radius: 4px; font-family: var(--condensed); font-size: 16px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; margin-top: 4px; }
+.save-btn { padding: 12px 24px; background: var(--gold); color: var(--black); border: none; border-radius: 4px; font-family: var(--condensed); font-size: 16px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; margin-top: 4px; transition: opacity 0.15s; }
+.save-btn:hover { opacity: 0.85; }
 
+/* TABLE */
 .inv-wrap { overflow-x: auto; }
 .inv-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.inv-table th { text-align: left; padding: 7px 8px; font-family: var(--condensed); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white3); border-bottom: 1px solid var(--black3); }
-.inv-table td { padding: 10px 8px; border-bottom: 1px solid var(--black3); vertical-align: middle; color: var(--white2); }
+.inv-table th { text-align: left; padding: 7px 8px; font-family: var(--condensed); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white3); border-bottom: 1px solid var(--black4); }
+.inv-table td { padding: 10px 8px; border-bottom: 1px solid var(--black4); vertical-align: middle; color: var(--white2); }
 .inv-table tr:last-child td { border-bottom: none; }
 .del-btn { font-family: var(--condensed); font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--red-light); border: 1px solid var(--red-dark); background: none; border-radius: 3px; padding: 4px 8px; cursor: pointer; }
+.del-btn:hover { background: var(--red-bg); }
 
 @media (max-width: 480px) {
   .row2, .row3 { grid-template-columns: 1fr; }
@@ -161,9 +200,9 @@ body { font-family: var(--body); background: var(--black); color: var(--white); 
 <body>
 
 <header class="header">
-  <div>
+  <div class="header-brand">
+    <div class="header-company">The Pest Company</div>
     <div class="header-title">Chemical Safety</div>
-    <div class="header-sub">Pest Control Reference</div>
   </div>
   <a class="poison-btn" href="tel:18002221222">⚠ Poison Control</a>
 </header>
@@ -251,18 +290,19 @@ body { font-family: var(--body); background: var(--black); color: var(--white); 
   const stored = localStorage.getItem('auth');
   if(stored !== 'PestcoFL') {
     document.body.innerHTML = `
-      <div style="min-height:100dvh;display:flex;align-items:center;justify-content:center;background:#0f1923;padding:20px">
+      <div style="min-height:100dvh;display:flex;align-items:center;justify-content:center;background:#0f1008;padding:20px">
         <div style="width:100%;max-width:340px">
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#f5f7f9;margin-bottom:4px">Chemical Safety</div>
-          <div style="font-size:12px;color:#a8b4c0;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:32px">Pest Control Reference</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#f4a629;margin-bottom:4px">The Pest Company</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#f7f6ee;line-height:1;margin-bottom:4px">Chemical Safety</div>
+          <div style="font-size:12px;color:#9a9680;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:36px">Staff access only</div>
           <input id="pw-input" type="password" placeholder="Enter password"
-            style="width:100%;padding:14px 16px;font-size:16px;background:#1a2633;border:1.5px solid #243040;border-radius:6px;color:#f5f7f9;outline:none;margin-bottom:10px;-webkit-appearance:none;font-family:Barlow,sans-serif"
+            style="width:100%;padding:14px 16px;font-size:16px;background:#1a1c0e;border:1.5px solid #2e3214;border-radius:6px;color:#f7f6ee;outline:none;margin-bottom:10px;-webkit-appearance:none;font-family:Barlow,sans-serif"
             onkeydown="if(event.key==='Enter')checkPw()"/>
           <button onclick="checkPw()"
-            style="width:100%;padding:14px;background:#e63946;color:#fff;border:none;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">
+            style="width:100%;padding:14px;background:#f4a629;color:#0f1008;border:none;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">
             Sign in
           </button>
-          <div id="pw-err" style="color:#ff6b74;font-size:13px;margin-top:10px;text-align:center;display:none">Incorrect password</div>
+          <div id="pw-err" style="color:#ff6b74;font-size:13px;margin-top:10px;text-align:center;display:none">Incorrect password — try again</div>
         </div>
       </div>`;
     window.checkPw = function(){
@@ -272,11 +312,14 @@ body { font-family: var(--body); background: var(--black); color: var(--white); 
         location.reload();
       } else {
         document.getElementById('pw-err').style.display='block';
+        document.getElementById('pw-input').value='';
+        document.getElementById('pw-input').focus();
       }
     };
     throw new Error('auth');
   }
 })();
+
 const SHEET_URL = '/api/sheet';
 const CACHE_KEY = 'pestchem_cache';
 const LOCAL_KEY = 'pestchem_local';
@@ -321,8 +364,7 @@ async function loadSheet() {
     const text=await res.text();
     sheetProducts=parseCSV(text);
     localStorage.setItem(CACHE_KEY,JSON.stringify({ts:Date.now(),data:sheetProducts}));
-    dot.className='sdot ok';
-    statusEl.textContent=sheetProducts.length+' products loaded';
+    dot.className='sdot ok'; statusEl.textContent=sheetProducts.length+' products loaded';
     showDefaultSearch();
   } catch(e) {
     const cached=JSON.parse(localStorage.getItem(CACHE_KEY)||'null');
@@ -453,3 +495,4 @@ loadSheet();
 </script>
 </body>
 </html>
+
