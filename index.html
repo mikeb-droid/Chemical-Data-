@@ -247,6 +247,36 @@ body { font-family: var(--body); background: var(--black); color: var(--white); 
 </div>
 
 <script>
+(function(){
+  const stored = localStorage.getItem('auth');
+  if(stored !== 'PestcoFL') {
+    document.body.innerHTML = `
+      <div style="min-height:100dvh;display:flex;align-items:center;justify-content:center;background:#0f1923;padding:20px">
+        <div style="width:100%;max-width:340px">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#f5f7f9;margin-bottom:4px">Chemical Safety</div>
+          <div style="font-size:12px;color:#a8b4c0;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:32px">Pest Control Reference</div>
+          <input id="pw-input" type="password" placeholder="Enter password"
+            style="width:100%;padding:14px 16px;font-size:16px;background:#1a2633;border:1.5px solid #243040;border-radius:6px;color:#f5f7f9;outline:none;margin-bottom:10px;-webkit-appearance:none;font-family:Barlow,sans-serif"
+            onkeydown="if(event.key==='Enter')checkPw()"/>
+          <button onclick="checkPw()"
+            style="width:100%;padding:14px;background:#e63946;color:#fff;border:none;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">
+            Sign in
+          </button>
+          <div id="pw-err" style="color:#ff6b74;font-size:13px;margin-top:10px;text-align:center;display:none">Incorrect password</div>
+        </div>
+      </div>`;
+    window.checkPw = function(){
+      const val = document.getElementById('pw-input').value;
+      if(val === 'PestcoFL'){
+        localStorage.setItem('auth','PestcoFL');
+        location.reload();
+      } else {
+        document.getElementById('pw-err').style.display='block';
+      }
+    };
+    throw new Error('auth');
+  }
+})();
 const SHEET_URL = '/api/sheet';
 const CACHE_KEY = 'pestchem_cache';
 const LOCAL_KEY = 'pestchem_local';
